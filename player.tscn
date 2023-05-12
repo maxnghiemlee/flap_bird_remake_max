@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://tkm3wer16u44"]
+
+[ext_resource type="Texture2D" uid="uid://dag3jcfnlm343" path="res://Player/bird2.png" id="1_fedmq"]
+[ext_resource type="Script" path="res://player.gd" id="1_pe4s0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1a144"]
+radius = 35.0
+height = 70.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vthdj"]
+atlas = ExtResource("1_fedmq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lh6ly"]
+atlas = ExtResource("1_fedmq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkrik"]
+atlas = ExtResource("1_fedmq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpm6x"]
+atlas = ExtResource("1_fedmq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y6px8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vthdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lh6ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkrik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpm6x")
+}],
+"loop": true,
+"name": &"Flap",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_pe4s0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_1a144")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_y6px8")
+animation = &"Flap"
