@@ -1,13 +1,21 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const UP = Vector2(0, -1)
+const GRAV = 10
+const FLAPSPD = 175
+const MAXFALLSPD = 225
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+var curmotion = Vector2(200, 0)
 
 func _physics_process(delta):
-
-	move_and_slide()
+	
+	if curmotion.y < MAXFALLSPD:
+		curmotion.y += GRAV 
+	if curmotion.y > MAXFALLSPD:
+		curmotion.y = MAXFALLSPD
+		
+	if Input.is_action_just_pressed("FLAP"):
+		curmotion.y = -FLAPSPD
+	
+	var collided = move_and_collide(curmotion * delta)

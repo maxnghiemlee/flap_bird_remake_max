@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5yyallph0iam"]
+
+[ext_resource type="Texture2D" uid="uid://dlss134hp1kqp" path="res://Tileset/Style 1/OldS2.png" id="1_h8bvc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymeou"]
+atlas = ExtResource("1_h8bvc")
+region = Rect2(0, 84, 64, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0tdm1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymeou")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evpfy"]
+size = Vector2(64, 27)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+scale = Vector2(5, 5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+sprite_frames = SubResource("SpriteFrames_0tdm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_evpfy")

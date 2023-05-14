@@ -1,5 +1,20 @@
-[gd_scene format=3 uid="uid://dkwikt0bamrnc"]
+[gd_scene load_steps=4 format=3 uid="uid://dkwikt0bamrnc"]
+
+[ext_resource type="PackedScene" uid="uid://tkm3wer16u44" path="res://player.tscn" id="1_vxopp"]
+[ext_resource type="PackedScene" uid="uid://dexw2vd1w1asq" path="res://wall.tscn" id="2_ixfgy"]
+[ext_resource type="PackedScene" uid="uid://b5yyallph0iam" path="res://ground.tscn" id="3_fh5r5"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+[node name="Player" parent="." instance=ExtResource("1_vxopp")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="topwall" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(400, -125)
+
+[node name="GROUND" parent="." instance=ExtResource("3_fh5r5")]
+position = Vector2(200, 720)
+
+[node name="bottomwall" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(400, 450)
