@@ -6,6 +6,7 @@ const GRAV = 10
 const FLAPSPD = 175
 const MAXFALLSPD = 225
 
+var score = 0
 var curmotion = Vector2(200, 0)
 
 func _physics_process(delta):
@@ -19,3 +20,9 @@ func _physics_process(delta):
 		curmotion.y = -FLAPSPD
 	
 	var collided = move_and_collide(curmotion * delta)
+
+
+func _on_detect_point_area_entered(area):
+	if area.name == "PointDetector":
+		score += 1
+		print(score)

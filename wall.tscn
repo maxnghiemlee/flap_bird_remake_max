@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dexw2vd1w1asq"]
+[gd_scene load_steps=6 format=3 uid="uid://dexw2vd1w1asq"]
 
 [ext_resource type="Texture2D" uid="uid://dlss134hp1kqp" path="res://Tileset/Style 1/OldS2.png" id="1_r6t45"]
 
@@ -20,14 +20,32 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6gru"]
+
 [node name="wallnode" type="Node2D"]
 
 [node name="Wall" type="StaticBody2D" parent="."]
 scale = Vector2(5, 5)
 
 [node name="Upperwallcollision" type="CollisionShape2D" parent="Wall"]
-position = Vector2(0, -0.5)
+position = Vector2(0, -70)
 shape = SubResource("RectangleShape2D_spf21")
 
 [node name="Upperwallsprite" type="AnimatedSprite2D" parent="Wall"]
+position = Vector2(0, -70)
 sprite_frames = SubResource("SpriteFrames_1dasg")
+
+[node name="Lowerwallcollision" type="CollisionShape2D" parent="Wall"]
+position = Vector2(0, 70)
+shape = SubResource("RectangleShape2D_spf21")
+
+[node name="Lowerwallsprite" type="AnimatedSprite2D" parent="Wall"]
+position = Vector2(0, 70)
+sprite_frames = SubResource("SpriteFrames_1dasg")
+
+[node name="PointDetector" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/PointDetector"]
+position = Vector2(27, 0)
+scale = Vector2(1, 3)
+shape = SubResource("RectangleShape2D_x6gru")

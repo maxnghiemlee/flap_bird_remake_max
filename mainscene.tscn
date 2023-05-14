@@ -1,20 +1,79 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkwikt0bamrnc"]
+[gd_scene load_steps=12 format=3 uid="uid://dkwikt0bamrnc"]
 
-[ext_resource type="PackedScene" uid="uid://tkm3wer16u44" path="res://player.tscn" id="1_vxopp"]
+[ext_resource type="Script" path="res://player.gd" id="1_58fno"]
+[ext_resource type="Texture2D" uid="uid://dag3jcfnlm343" path="res://Player/bird2.png" id="2_54mjr"]
 [ext_resource type="PackedScene" uid="uid://dexw2vd1w1asq" path="res://wall.tscn" id="2_ixfgy"]
 [ext_resource type="PackedScene" uid="uid://b5yyallph0iam" path="res://ground.tscn" id="3_fh5r5"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xg66y"]
+size = Vector2(65, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vthdj"]
+atlas = ExtResource("2_54mjr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lh6ly"]
+atlas = ExtResource("2_54mjr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkrik"]
+atlas = ExtResource("2_54mjr")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpm6x"]
+atlas = ExtResource("2_54mjr")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y6px8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vthdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lh6ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkrik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpm6x")
+}],
+"loop": true,
+"name": &"Flap",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_legyn"]
+
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_vxopp")]
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_58fno")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(1.5, 4.5)
+shape = SubResource("RectangleShape2D_xg66y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_y6px8")
+animation = &"Flap"
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
+[node name="DetectPoint" type="Area2D" parent="Player"]
+scale = Vector2(1.4, 1.4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/DetectPoint"]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_legyn")
+
 [node name="topwall" parent="." instance=ExtResource("2_ixfgy")]
 position = Vector2(400, -125)
+metadata/_edit_group_ = true
 
 [node name="GROUND" parent="." instance=ExtResource("3_fh5r5")]
 position = Vector2(200, 720)
 
-[node name="bottomwall" parent="." instance=ExtResource("2_ixfgy")]
-position = Vector2(400, 450)
+[connection signal="area_entered" from="Player/DetectPoint" to="Player" method="_on_detect_point_area_entered"]
