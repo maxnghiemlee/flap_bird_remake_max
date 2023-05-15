@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 const UP = Vector2(0, -1)
 const GRAV = 10
-const FLAPSPD = 175
-const MAXFALLSPD = 225
+const FLAPSPD = 250
+const MAXFALLSPD = 325
 
 var score = 0
 var curmotion = Vector2(250, 0)
@@ -18,7 +18,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("FLAP"):
 		curmotion.y = -FLAPSPD
-	print(curmotion.y)
+	#print(curmotion.y)
 		
 	if curmotion.y >= 0:
 		$AnimatedSprite2D.stop()
