@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xg66y"]
 size = Vector2(65, 51)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1eva"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_34jhp"]
 atlas = ExtResource("1_fedmq")
 region = Rect2(48, 0, 16, 16)
 
@@ -26,7 +26,7 @@ region = Rect2(32, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h1eva")
+"texture": SubResource("AtlasTexture_34jhp")
 }],
 "loop": true,
 "name": &"Falling",
@@ -57,4 +57,4 @@ shape = SubResource("RectangleShape2D_xg66y")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_y6px8")
-animation = &"Flap"
+animation = &"Falling"
