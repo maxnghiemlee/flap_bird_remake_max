@@ -6,6 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xg66y"]
 size = Vector2(65, 51)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1eva"]
+atlas = ExtResource("1_fedmq")
+region = Rect2(48, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vthdj"]
 atlas = ExtResource("1_fedmq")
 region = Rect2(0, 0, 16, 16)
@@ -18,12 +22,16 @@ region = Rect2(16, 0, 16, 16)
 atlas = ExtResource("1_fedmq")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gpm6x"]
-atlas = ExtResource("1_fedmq")
-region = Rect2(48, 0, 16, 16)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_y6px8"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1eva")
+}],
+"loop": true,
+"name": &"Falling",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vthdj")
@@ -33,9 +41,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rkrik")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gpm6x")
 }],
 "loop": true,
 "name": &"Flap",

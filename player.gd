@@ -18,6 +18,12 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed("FLAP"):
 		curmotion.y = -FLAPSPD
+
+		
+	if curmotion.y >= 0:
+		$AnimatedSprite2D.play("Falling")
+	elif curmotion.y < 0:
+		$AnimatedSprite2D.play("Flap")
 	
 	var collided = move_and_collide(curmotion * delta)
 
