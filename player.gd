@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 enum State {TITLE, NOT_STARTED, ALIVE, DEAD, RESTARTING}
 
+var curstate = State.NOT_STARTED
+
 const UP = Vector2(0, -1)
 const GRAV = 10
 const FLAPSPD = 250
@@ -13,19 +15,18 @@ var timeelapsed = 0
 
 func switch_to(new_state: State):
 	if new_state == State.ALIVE:
-		Globals.curstate = State.ALIVE
+		curstate = State.ALIVE
 		print("here we go. starting!")
 	if new_state == State.DEAD:
 		$AnimatedSprite2D.stop()
-		Globals.curstate = State.DEAD
+		curstate = State.DEAD
 		print("dead")
 	if new_state == State.RESTARTING:
 		print("restarting")
+		$CanvasLayer/MarginContainer.visible = true
 	
 func _physics_process(delta):
-	if Globals.curstate == State.ALIVE:
-		if Globals.needtoswitch:
-			switch_to(Globals.switchedstate)
+	if curstate == State.ALIVE:
 		if curmotion.y < MAXFALLSPD:
 			curmotion.y += GRAV 
 		if curmotion.y > MAXFALLSPD:
@@ -44,19 +45,20 @@ func _physics_process(delta):
 			#print("playing flap")
 		
 		var collided = move_and_collide(curmotion * delta)
-	elif Globals.curstate == State.NOT_STARTED:
+	elif curstate == State.NOT_STARTED:
 		if Input.is_action_just_pressed("FLAP"):
 			curmotion.y = - FLAPSPD
 			switch_to(State.ALIVE)
-	elif Globals.curstate == State.DEAD:
+	elif curstate == State.DEAD:
 		timeelapsed += delta
 		if timeelapsed >= 3:
 			switch_to(State.RESTARTING)
-	elif Globals.curstate == State.RESTARTING:
+	elif curstate == State.RESTARTING:
 		if Input.is_action_just_pressed("clickedleft"):
 			switch_to(State.NOT_STARTED)
 		elif Input.is_action_just_pressed("clickedright"):
 			switch_to(State.TITLE)
+			$CanvasLayer/MarginContainer.visible = false
 func _on_detect_point_area_entered(area):
 	if area.name == "PointDetector":
 		score += 1

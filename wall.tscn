@@ -21,6 +21,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x6gru"]
+size = Vector2(27.6, 20)
 
 [node name="wallnode" type="Node2D"]
 
@@ -51,6 +52,6 @@ sprite_frames = SubResource("SpriteFrames_1dasg")
 [node name="PointDetector" type="Area2D" parent="Wall"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/PointDetector"]
-position = Vector2(27, 0)
+position = Vector2(0.400002, -0.8)
 scale = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_x6gru")

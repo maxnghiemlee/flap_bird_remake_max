@@ -24,6 +24,24 @@ shape = SubResource("RectangleShape2D_legyn")
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(0.8, 0.8)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Player2"]
+
+[node name="MarginContainer" type="MarginContainer" parent="Player2/CanvasLayer"]
+offset_left = -280.0
+offset_top = -308.0
+offset_right = 240.0
+offset_bottom = -105.0
+
+[node name="Panel" type="Panel" parent="Player2/CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player2/CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player2/CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "You died. Left-click to restart, and right-click to exit to main menu!"
+
 [node name="topwall" parent="." instance=ExtResource("2_ixfgy")]
 position = Vector2(600, -8)
 metadata/_edit_group_ = true
@@ -40,24 +58,6 @@ motion_mirroring = Vector2(3050, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer/ParallaxLayer"]
 scale = Vector2(12, 6)
 texture = ExtResource("5_wgtpy")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-offset_left = -280.0
-offset_top = -308.0
-offset_right = 240.0
-offset_bottom = -105.0
-
-[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "You died. Left-click to restart, and right-click to exit to main menu!"
 
 [connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
 

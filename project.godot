@@ -15,10 +15,6 @@ run/main_scene="res://mainscene.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Globals="*res://globals.gd"
-
 [input]
 
 FLAP={
