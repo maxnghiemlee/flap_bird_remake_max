@@ -14,10 +14,10 @@
 [node name="CollisionShape2D" parent="Player2" index="0"]
 scale = Vector2(2, 2)
 
-[node name="DetectPoint" type="Area2D" parent="Player2"]
+[node name="Detector" type="Area2D" parent="Player2"]
 scale = Vector2(2, 2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/DetectPoint"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Detector"]
 scale = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_legyn")
 
@@ -40,5 +40,25 @@ motion_mirroring = Vector2(3050, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer/ParallaxLayer"]
 scale = Vector2(12, 6)
 texture = ExtResource("5_wgtpy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_left = -280.0
+offset_top = -308.0
+offset_right = 240.0
+offset_bottom = -105.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "You died. Left-click to restart, and right-click to exit to main menu!"
+
+[connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
 
 [editable path="Player2"]
