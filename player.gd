@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
-enum State {TITLE, NOT_STARTED, ALIVE, DEAD, RESTARTING}
+enum State {TITLE, NOT_STARTED, ALIVE, DEAD, RESTARTING, WAIT_RESPONSE}
 
-var curstate = State.NOT_STARTED
+var curstate = State.TITLE
+var toswitch = false
+var nextstate
 
 const UP = Vector2(0, -1)
 const GRAV = 10
@@ -14,6 +16,15 @@ var curmotion = Vector2(250, 0)
 var timeelapsed = 0
 
 func switch_to(new_state: State):
+	
+	if new_state != State.RESTARTING:
+		$CanvasLayer/MarginContainer.visible = false
+	if new_state == State.NOT_STARTED:
+		toswitch = false
+		curstate = State.NOT_STARTED
+		self.position.x = 0
+		self.position.y = 0
+	
 	if new_state == State.ALIVE:
 		curstate = State.ALIVE
 		print("here we go. starting!")
@@ -22,10 +33,18 @@ func switch_to(new_state: State):
 		curstate = State.DEAD
 		print("dead")
 	if new_state == State.RESTARTING:
-		print("restarting")
+		#print("restarting")
 		$CanvasLayer/MarginContainer.visible = true
+		switch_to(State.WAIT_RESPONSE)
+	if new_state == State.WAIT_RESPONSE:
+		curstate = State.WAIT_RESPONSE
+		print("in waitrepson")
 	
 func _physics_process(delta):
+	timeelapsed += delta
+	if curstate == State.TITLE:
+		switch_to(State.NOT_STARTED)
+	
 	if curstate == State.ALIVE:
 		if curmotion.y < MAXFALLSPD:
 			curmotion.y += GRAV 
@@ -45,20 +64,30 @@ func _physics_process(delta):
 			#print("playing flap")
 		
 		var collided = move_and_collide(curmotion * delta)
-	elif curstate == State.NOT_STARTED:
+	if curstate == State.NOT_STARTED:
 		if Input.is_action_just_pressed("FLAP"):
 			curmotion.y = - FLAPSPD
 			switch_to(State.ALIVE)
-	elif curstate == State.DEAD:
+	if curstate == State.DEAD:
 		timeelapsed += delta
-		if timeelapsed >= 3:
+		if timeelapsed >= 1:
+			timeelapsed = 0
+			print('switching to restarting')
 			switch_to(State.RESTARTING)
-	elif curstate == State.RESTARTING:
+	if curstate == State.WAIT_RESPONSE:
 		if Input.is_action_just_pressed("clickedleft"):
-			switch_to(State.NOT_STARTED)
-		elif Input.is_action_just_pressed("clickedright"):
-			switch_to(State.TITLE)
-			$CanvasLayer/MarginContainer.visible = false
+			print("left clicked")
+			toswitch = true
+			nextstate = State.NOT_STARTED
+			timeelapsed = 0
+		if Input.is_action_just_pressed("clickedright"):
+			print("right clicked")
+			toswitch = true
+			nextstate = State.TITLE
+		if timeelapsed >= 0.2 and toswitch:
+			print(timeelapsed)
+			timeelapsed = 0
+			switch_to(nextstate)
 func _on_detect_point_area_entered(area):
 	if area.name == "PointDetector":
 		score += 1

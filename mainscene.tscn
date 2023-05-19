@@ -14,16 +14,6 @@
 [node name="CollisionShape2D" parent="Player2" index="0"]
 scale = Vector2(2, 2)
 
-[node name="Detector" type="Area2D" parent="Player2"]
-scale = Vector2(2, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Detector"]
-scale = Vector2(2.5, 2.5)
-shape = SubResource("RectangleShape2D_legyn")
-
-[node name="Camera2D" type="Camera2D" parent="Player2"]
-zoom = Vector2(0.8, 0.8)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="Player2"]
 
 [node name="MarginContainer" type="MarginContainer" parent="Player2/CanvasLayer"]
@@ -41,6 +31,16 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Player2/CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "You died. Left-click to restart, and right-click to exit to main menu!"
+
+[node name="Detector" type="Area2D" parent="Player2"]
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Detector"]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_legyn")
+
+[node name="Camera2D" type="Camera2D" parent="Player2"]
+zoom = Vector2(0.8, 0.8)
 
 [node name="topwall" parent="." instance=ExtResource("2_ixfgy")]
 position = Vector2(600, -8)
