@@ -23,8 +23,8 @@ shape = SubResource("RectangleShape2D_legyn")
 [node name="Camera2D" type="Camera2D" parent="Player2"]
 zoom = Vector2(0.8, 0.8)
 
-[node name="topwall" parent="." instance=ExtResource("2_ixfgy")]
-position = Vector2(600, -8)
+[node name="wall" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(1100, -8)
 metadata/_edit_group_ = true
 
 [node name="ParallaxLayer" type="ParallaxBackground" parent="."]

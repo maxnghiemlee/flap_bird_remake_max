@@ -15,15 +15,12 @@ const MAXFALLSPD = 400
 var score = 0
 var curmotion = Vector2(400, 0)
 var timeelapsed = 0
-var highestpt = 0
 
 func switch_to(new_state: State):
 	
 	get_parent().get_node("CanvasLayer/MarginContainer").visible = false
-	
 	if new_state == State.RESTARTING or new_state == State.WAIT_RESPONSE:
 		get_parent().get_node("CanvasLayer/MarginContainer").visible = true
-		# print(new_state, "hidden")
 	if new_state == State.NOT_STARTED:
 		toswitch = false
 		curstate = State.NOT_STARTED
@@ -34,7 +31,6 @@ func switch_to(new_state: State):
 		curstate = State.ALIVE
 		print("here we go. starting!")
 	if new_state == State.DEAD:
-		print(highestpt)
 		$AnimatedSprite2D.stop()
 		curstate = State.DEAD
 		print("dead")
@@ -47,17 +43,19 @@ func switch_to(new_state: State):
 		print("in waitrepson")
 	
 func _physics_process(delta):
-	if self.position.y < highestpt:
-		highestpt = self.position.y
 	timeelapsed += delta
 	if curstate == State.ALIVE:
-		if curmotion.y < MAXFALLSPD:
+		if self.position.y > 400:
+			curmotion.y = 0
+		if self.position.y < 400 and curmotion.y < MAXFALLSPD:
 			curmotion.y += GRAV 
 		if curmotion.y > MAXFALLSPD:
 			curmotion.y = MAXFALLSPD
-			
 		if Input.is_action_just_pressed("FLAP"):
-			curmotion.y = -FLAPSPD
+			print("flap tried. position: ", self.position.y)
+			if (self.position.y > -300):
+				print("flapped. position: ", self.position.y)
+				curmotion.y = -FLAPSPD
 		#print(curmotion.y)
 			
 		if curmotion.y >= 0:
