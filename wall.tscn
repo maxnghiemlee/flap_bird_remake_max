@@ -31,27 +31,31 @@ scale = Vector2(5, 5)
 [node name="LowerWallDet" type="Area2D" parent="Wall"]
 
 [node name="Lowerwallcollision" type="CollisionShape2D" parent="Wall/LowerWallDet"]
-position = Vector2(0, 60)
+position = Vector2(0, 145)
+scale = Vector2(1.3, 3)
 shape = SubResource("RectangleShape2D_spf21")
 
 [node name="UpperWallDet" type="Area2D" parent="Wall"]
 position = Vector2(0, -60)
 
 [node name="Upperwallcollision" type="CollisionShape2D" parent="Wall/UpperWallDet"]
-position = Vector2(0, -3.8147e-06)
+position = Vector2(0, -85)
+scale = Vector2(1.3, 3)
 shape = SubResource("RectangleShape2D_spf21")
 
 [node name="Upperwallsprite" type="AnimatedSprite2D" parent="Wall"]
-position = Vector2(0, -60)
+position = Vector2(0, -140)
+scale = Vector2(1.5, 3)
 sprite_frames = SubResource("SpriteFrames_1dasg")
 
 [node name="Lowerwallsprite" type="AnimatedSprite2D" parent="Wall"]
-position = Vector2(0, 60)
+position = Vector2(0, 140)
+scale = Vector2(1.5, 3)
 sprite_frames = SubResource("SpriteFrames_1dasg")
 
 [node name="PointDetector" type="Area2D" parent="Wall"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/PointDetector"]
 position = Vector2(0.400002, -0.8)
-scale = Vector2(1, 2)
+scale = Vector2(1.5, 2)
 shape = SubResource("RectangleShape2D_x6gru")

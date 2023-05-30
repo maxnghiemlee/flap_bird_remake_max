@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dmirs5jde7pq5" path="res://Flappy Bird Assets/newflappy/yellowbird-upflap.png" id="4_g2hx1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xg66y"]
-size = Vector2(65, 51)
+size = Vector2(131.429, 92.8572)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_peda5"]
 atlas = ExtResource("4_g2hx1")
@@ -47,7 +47,8 @@ scale = Vector2(0.7, 0.7)
 script = ExtResource("1_pe4s0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 4.5)
+position = Vector2(-2.85715, -2.14286)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_xg66y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

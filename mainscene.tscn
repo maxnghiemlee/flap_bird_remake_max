@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkwikt0bamrnc"]
+[gd_scene load_steps=5 format=3 uid="uid://dkwikt0bamrnc"]
 
 [ext_resource type="PackedScene" uid="uid://tkm3wer16u44" path="res://player.tscn" id="1_du888"]
 [ext_resource type="PackedScene" uid="uid://dexw2vd1w1asq" path="res://wall.tscn" id="2_ixfgy"]
-[ext_resource type="PackedScene" uid="uid://b5yyallph0iam" path="res://ground.tscn" id="3_fh5r5"]
 [ext_resource type="Texture2D" uid="uid://dg27btv051ft3" path="res://Background/Background5.png" id="5_wgtpy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_legyn"]
@@ -13,24 +12,6 @@
 
 [node name="CollisionShape2D" parent="Player2" index="0"]
 scale = Vector2(2, 2)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Player2"]
-
-[node name="MarginContainer" type="MarginContainer" parent="Player2/CanvasLayer"]
-offset_left = -280.0
-offset_top = -308.0
-offset_right = 240.0
-offset_bottom = -105.0
-
-[node name="Panel" type="Panel" parent="Player2/CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Player2/CanvasLayer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Player2/CanvasLayer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "You died. Left-click to restart, and right-click to exit to main menu!"
 
 [node name="Detector" type="Area2D" parent="Player2"]
 scale = Vector2(2, 2)
@@ -46,9 +27,6 @@ zoom = Vector2(0.8, 0.8)
 position = Vector2(600, -8)
 metadata/_edit_group_ = true
 
-[node name="GROUND" parent="." instance=ExtResource("3_fh5r5")]
-position = Vector2(360, 552)
-
 [node name="ParallaxLayer" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxLayer"]
@@ -58,6 +36,24 @@ motion_mirroring = Vector2(3050, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer/ParallaxLayer"]
 scale = Vector2(12, 6)
 texture = ExtResource("5_wgtpy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(450, 200)
+transform = Transform2D(1, 0, 0, 1, 450, 200)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 236.0
+offset_bottom = 72.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "You died. Left-click to restart!"
 
 [connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
 

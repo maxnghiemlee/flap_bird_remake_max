@@ -1,24 +1,29 @@
 extends CharacterBody2D
 
-enum State {TITLE, NOT_STARTED, ALIVE, DEAD, RESTARTING, WAIT_RESPONSE}
+enum State {NOT_STARTED, ALIVE, DEAD, RESTARTING, WAIT_RESPONSE}
 
-var curstate = State.TITLE
+var curstate = State.NOT_STARTED
 var toswitch = false
 var nextstate
 
+
 const UP = Vector2(0, -1)
-const GRAV = 10
-const FLAPSPD = 250
-const MAXFALLSPD = 325
+const GRAV = 15
+const FLAPSPD = 350
+const MAXFALLSPD = 400
 
 var score = 0
-var curmotion = Vector2(250, 0)
+var curmotion = Vector2(400, 0)
 var timeelapsed = 0
+var highestpt = 0
 
 func switch_to(new_state: State):
 	
-	if new_state != State.RESTARTING:
-		$CanvasLayer/MarginContainer.visible = false
+	get_parent().get_node("CanvasLayer/MarginContainer").visible = false
+	
+	if new_state == State.RESTARTING or new_state == State.WAIT_RESPONSE:
+		get_parent().get_node("CanvasLayer/MarginContainer").visible = true
+		# print(new_state, "hidden")
 	if new_state == State.NOT_STARTED:
 		toswitch = false
 		curstate = State.NOT_STARTED
@@ -29,22 +34,22 @@ func switch_to(new_state: State):
 		curstate = State.ALIVE
 		print("here we go. starting!")
 	if new_state == State.DEAD:
+		print(highestpt)
 		$AnimatedSprite2D.stop()
 		curstate = State.DEAD
 		print("dead")
 	if new_state == State.RESTARTING:
-		#print("restarting")
-		$CanvasLayer/MarginContainer.visible = true
+		curstate = State.RESTARTING
+		print("should display textbox")
 		switch_to(State.WAIT_RESPONSE)
 	if new_state == State.WAIT_RESPONSE:
 		curstate = State.WAIT_RESPONSE
 		print("in waitrepson")
 	
 func _physics_process(delta):
+	if self.position.y < highestpt:
+		highestpt = self.position.y
 	timeelapsed += delta
-	if curstate == State.TITLE:
-		switch_to(State.NOT_STARTED)
-	
 	if curstate == State.ALIVE:
 		if curmotion.y < MAXFALLSPD:
 			curmotion.y += GRAV 
@@ -83,7 +88,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("clickedright"):
 			print("right clicked")
 			toswitch = true
-			nextstate = State.TITLE
+			nextstate = State.NOT_STARTED
 		if timeelapsed >= 0.2 and toswitch:
 			print(timeelapsed)
 			timeelapsed = 0
