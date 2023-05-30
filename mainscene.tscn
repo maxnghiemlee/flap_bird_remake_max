@@ -37,23 +37,39 @@ motion_mirroring = Vector2(3050, 0)
 scale = Vector2(12, 6)
 texture = ExtResource("5_wgtpy")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="DeathThing" type="CanvasLayer" parent="."]
 offset = Vector2(450, 200)
 transform = Transform2D(1, 0, 0, 1, 450, 200)
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="DeathThing"]
 offset_right = 236.0
 offset_bottom = 72.0
 
-[node name="Panel" type="Panel" parent="CanvasLayer/MarginContainer"]
+[node name="Panel" type="Panel" parent="DeathThing/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="DeathThing/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="DeathThing/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "You died. Left-click to restart!"
+text = "You died. Left-click to restart."
+
+[node name="PointCounter" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="PointCounter"]
+visible = false
+offset_right = 236.0
+offset_bottom = 72.0
+
+[node name="Panel" type="Panel" parent="PointCounter/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PointCounter/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PointCounter/MarginContainer/HBoxContainer"]
+layout_mode = 2
 
 [connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
 

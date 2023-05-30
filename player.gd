@@ -13,20 +13,19 @@ const FLAPSPD = 350
 const MAXFALLSPD = 400
 
 var score = 0
+var highscore = 0
 var curmotion = Vector2(400, 0)
 var timeelapsed = 0
 
 func switch_to(new_state: State):
-	
-	get_parent().get_node("CanvasLayer/MarginContainer").visible = false
+	get_parent().get_node("DeathThing/MarginContainer").visible = false
 	if new_state == State.RESTARTING or new_state == State.WAIT_RESPONSE:
-		get_parent().get_node("CanvasLayer/MarginContainer").visible = true
+		get_parent().get_node("DeathThing/MarginContainer").visible = true
 	if new_state == State.NOT_STARTED:
 		toswitch = false
 		curstate = State.NOT_STARTED
 		self.position.x = 0
 		self.position.y = 0
-	
 	if new_state == State.ALIVE:
 		curstate = State.ALIVE
 		print("here we go. starting!")
@@ -94,8 +93,14 @@ func _physics_process(delta):
 func _on_detect_point_area_entered(area):
 	if area.name == "PointDetector":
 		score += 1
+		if score > highscore:
+			highscore = score
 		print(score)
+		get_parent().get_node("PointCounter/MarginContainer").visible = true
+		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = str(score)
 	if area.name == "UpperWallDet" or area.name == "LowerWallDet":
 		print("dead")
+		get_parent().get_node("DeathThing/MarginContainer/HBoxContainer/Label").text = 'You died. Left-click to restart.\n' + "High Score: " + str(highscore)
+		get_parent().get_node("DeathThing/MarginContainer/HBoxContainer/Label").horizontal_alignment = 1
 		switch_to(State.DEAD)
 
