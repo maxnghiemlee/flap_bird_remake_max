@@ -23,6 +23,8 @@ func switch_to(new_state: State):
 		get_parent().get_node("DeathThing/MarginContainer").visible = true
 	if new_state == State.NOT_STARTED:
 		toswitch = false
+		score = 0
+		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = str(score)
 		curstate = State.NOT_STARTED
 		self.position.x = 0
 		self.position.y = 0
@@ -82,10 +84,6 @@ func _physics_process(delta):
 			toswitch = true
 			nextstate = State.NOT_STARTED
 			timeelapsed = 0
-		if Input.is_action_just_pressed("clickedright"):
-			print("right clicked")
-			toswitch = true
-			nextstate = State.NOT_STARTED
 		if timeelapsed >= 0.2 and toswitch:
 			print(timeelapsed)
 			timeelapsed = 0
