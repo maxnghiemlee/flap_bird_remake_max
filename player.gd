@@ -8,7 +8,7 @@ var nextstate
 
 
 const UP = Vector2(0, -1)
-const GRAV = 15
+const GRAV = 20
 const FLAPSPD = 350
 const MAXFALLSPD = 400
 

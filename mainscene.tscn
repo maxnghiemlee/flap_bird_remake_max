@@ -27,6 +27,26 @@ zoom = Vector2(0.8, 0.8)
 position = Vector2(1100, -8)
 metadata/_edit_group_ = true
 
+[node name="wall2" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(1800, 180)
+metadata/_edit_group_ = true
+
+[node name="wall3" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(2500, -150)
+metadata/_edit_group_ = true
+
+[node name="wall4" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(3200, 200)
+metadata/_edit_group_ = true
+
+[node name="wall5" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(3900, 70)
+metadata/_edit_group_ = true
+
+[node name="wall6" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(4600, -70)
+metadata/_edit_group_ = true
+
 [node name="ParallaxLayer" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxLayer"]
