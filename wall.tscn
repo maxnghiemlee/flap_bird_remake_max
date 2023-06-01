@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dlss134hp1kqp" path="res://Tileset/Style 1/OldS2.png" id="1_r6t45"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spf21"]
-size = Vector2(34, 83)
+size = Vector2(34, 84.0458)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxssj"]
 atlas = ExtResource("1_r6t45")
@@ -25,37 +25,47 @@ size = Vector2(27.6, 20)
 
 [node name="wallnode" type="Node2D"]
 
-[node name="Wall" type="StaticBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="."]
 scale = Vector2(5, 5)
 
-[node name="LowerWallDet" type="Area2D" parent="Wall"]
+[node name="LowerWallDet" type="Area2D" parent="Walls"]
 
-[node name="Lowerwallcollision" type="CollisionShape2D" parent="Wall/LowerWallDet"]
-position = Vector2(0, 145)
+[node name="Lowerwallcollision" type="CollisionShape2D" parent="Walls/LowerWallDet"]
+position = Vector2(0, 144.269)
 scale = Vector2(1.3, 3)
 shape = SubResource("RectangleShape2D_spf21")
 
-[node name="UpperWallDet" type="Area2D" parent="Wall"]
+[node name="UpperWallDet" type="Area2D" parent="Walls"]
 position = Vector2(0, -60)
 
-[node name="Upperwallcollision" type="CollisionShape2D" parent="Wall/UpperWallDet"]
-position = Vector2(0, -85)
+[node name="Upperwallcollision" type="CollisionShape2D" parent="Walls/UpperWallDet"]
+position = Vector2(0, -84.1625)
 scale = Vector2(1.3, 3)
 shape = SubResource("RectangleShape2D_spf21")
 
-[node name="Upperwallsprite" type="AnimatedSprite2D" parent="Wall"]
+[node name="Upperwallsprite" type="AnimatedSprite2D" parent="Walls"]
 position = Vector2(0, -140)
 scale = Vector2(1.5, 3)
 sprite_frames = SubResource("SpriteFrames_1dasg")
 
-[node name="Lowerwallsprite" type="AnimatedSprite2D" parent="Wall"]
+[node name="Lowerwallsprite" type="AnimatedSprite2D" parent="Walls"]
 position = Vector2(0, 140)
 scale = Vector2(1.5, 3)
 sprite_frames = SubResource("SpriteFrames_1dasg")
 
-[node name="PointDetector" type="Area2D" parent="Wall"]
+[node name="PointDetector" type="Area2D" parent="Walls"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/PointDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/PointDetector"]
 position = Vector2(0.400002, -0.8)
 scale = Vector2(1.5, 2)
 shape = SubResource("RectangleShape2D_x6gru")
+
+[node name="Lowerwallcollision" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 145)
+scale = Vector2(0.5, 1.154)
+shape = SubResource("RectangleShape2D_spf21")
+
+[node name="Upperwallcollision" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, -145)
+scale = Vector2(0.5, 1.154)
+shape = SubResource("RectangleShape2D_spf21")

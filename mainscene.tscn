@@ -1,10 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkwikt0bamrnc"]
+[gd_scene load_steps=6 format=3 uid="uid://dkwikt0bamrnc"]
 
 [ext_resource type="PackedScene" uid="uid://tkm3wer16u44" path="res://player.tscn" id="1_du888"]
 [ext_resource type="PackedScene" uid="uid://dexw2vd1w1asq" path="res://wall.tscn" id="2_ixfgy"]
 [ext_resource type="Texture2D" uid="uid://dg27btv051ft3" path="res://Background/Background5.png" id="5_wgtpy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_legyn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_urt4f"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,15 +15,22 @@
 [node name="CollisionShape2D" parent="Player2" index="0"]
 scale = Vector2(2, 2)
 
-[node name="Detector" type="Area2D" parent="Player2"]
+[node name="PointDetector" type="Area2D" parent="Player2"]
 scale = Vector2(2, 2)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/PointDetector"]
 scale = Vector2(2.5, 2.5)
 shape = SubResource("RectangleShape2D_legyn")
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.9, 0.9)
+
+[node name="Resetter" type="Area2D" parent="Player2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Resetter"]
+position = Vector2(-1100, 0)
+scale = Vector2(1, 80)
+shape = SubResource("RectangleShape2D_urt4f")
 
 [node name="wall" parent="." instance=ExtResource("2_ixfgy")]
 position = Vector2(1100, -8)
@@ -51,10 +60,11 @@ metadata/_edit_group_ = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxLayer"]
 motion_scale = Vector2(0.2, 0.3)
-motion_mirroring = Vector2(3050, 0)
+motion_mirroring = Vector2(4500, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer/ParallaxLayer"]
-scale = Vector2(12, 6)
+position = Vector2(128, -184)
+scale = Vector2(17.578, 11)
 texture = ExtResource("5_wgtpy")
 
 [node name="DeathThing" type="CanvasLayer" parent="."]
@@ -62,8 +72,18 @@ offset = Vector2(450, 200)
 transform = Transform2D(1, 0, 0, 1, 450, 200)
 
 [node name="MarginContainer" type="MarginContainer" parent="DeathThing"]
-offset_right = 236.0
-offset_bottom = 72.0
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -340.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="DeathThing/MarginContainer"]
 layout_mode = 2
@@ -89,8 +109,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="PointCounter/MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "0"
+text = "Score: 0"
 
-[connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
+[connection signal="area_entered" from="Player2/PointDetector" to="Player2" method="_on_detect_point_area_entered"]
+[connection signal="body_entered" from="Player2/Resetter" to="Player2" method="_on_resetter_body_entered"]
 
 [editable path="Player2"]

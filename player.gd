@@ -5,6 +5,7 @@ enum State {NOT_STARTED, ALIVE, DEAD, RESTARTING, WAIT_RESPONSE}
 var curstate = State.NOT_STARTED
 var toswitch = false
 var nextstate
+var Wall = preload("res://wall.tscn")
 
 
 const UP = Vector2(0, -1)
@@ -13,7 +14,6 @@ const FLAPSPD = 350
 const MAXFALLSPD = 400
 
 var score = 0
-var highscore = 0
 var curmotion = Vector2(400, 0)
 var timeelapsed = 0
 
@@ -22,9 +22,9 @@ func switch_to(new_state: State):
 	if new_state == State.RESTARTING or new_state == State.WAIT_RESPONSE:
 		get_parent().get_node("DeathThing/MarginContainer").visible = true
 	if new_state == State.NOT_STARTED:
-		toswitch = false
-		score = 0
-		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = str(score)
+		curstate = State.NOT_STARTED
+		get_tree().reload_current_scene()
+		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = 'Score: ' + str(score)
 		curstate = State.NOT_STARTED
 		self.position.x = 0
 		self.position.y = 0
@@ -91,14 +91,30 @@ func _physics_process(delta):
 func _on_detect_point_area_entered(area):
 	if area.name == "PointDetector":
 		score += 1
-		if score > highscore:
-			highscore = score
+		if score > Globals.highscore:
+			Globals.highscore = score
 		print(score)
 		get_parent().get_node("PointCounter/MarginContainer").visible = true
-		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = str(score)
+		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = 'Score: ' + str(score)
 	if area.name == "UpperWallDet" or area.name == "LowerWallDet":
 		print("dead")
-		get_parent().get_node("DeathThing/MarginContainer/HBoxContainer/Label").text = 'You died. Left-click to restart.\n' + "High Score: " + str(highscore)
+		get_parent().get_node("DeathThing/MarginContainer/HBoxContainer/Label").text = 'You died. Left-click to restart.\n' + "High Score: " + str(Globals.highscore)
 		get_parent().get_node("DeathThing/MarginContainer/HBoxContainer/Label").horizontal_alignment = 1
 		switch_to(State.DEAD)
+	
+
+func Wall_reset():
+	#https://docs.godotengine.org/en/stable/classes/class_randomnumbergenerator.html
+	var rng = RandomNumberGenerator.new()
+	var Wall_instance = Wall.instantiate()
+	Wall_instance.position = Vector2(self.position.x+3500, rng.randf_range(-200,200))
+	get_parent().call_deferred("add_child", Wall_instance)
+
+func _on_resetter_body_entered(body):
+	if body.name == "Walls":
+		print("trying to make new wall\n")
+		Wall_reset()
+		#https://gdscript.com/solutions/coroutines-and-yield/
+		await get_tree().create_timer(5.0).timeout
+		body.queue_free()
 
