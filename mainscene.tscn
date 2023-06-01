@@ -95,6 +95,34 @@ layout_mode = 2
 layout_mode = 2
 text = "You died! Left-click to restart."
 
+[node name="IntroThing" type="CanvasLayer" parent="."]
+offset = Vector2(450, 200)
+transform = Transform2D(1, 0, 0, 1, 450, 200)
+
+[node name="MarginContainer" type="MarginContainer" parent="IntroThing"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -340.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="IntroThing/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="IntroThing/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IntroThing/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Be careful not to touch the walls! (but do give Max a 100%)!
+To start, press space. Goodluck!"
+
 [node name="PointCounter" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="PointCounter"]
