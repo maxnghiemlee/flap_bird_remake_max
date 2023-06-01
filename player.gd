@@ -22,6 +22,8 @@ func switch_to(new_state: State):
 	if new_state == State.RESTARTING or new_state == State.WAIT_RESPONSE:
 		get_parent().get_node("DeathThing/MarginContainer").visible = true
 	if new_state == State.NOT_STARTED:
+		score = 0
+		get_parent().get_node("PointCounter/MarginContainer/HBoxContainer/Label").text = str(score)
 		toswitch = false
 		curstate = State.NOT_STARTED
 		self.position.x = 0

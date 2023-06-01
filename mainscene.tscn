@@ -27,6 +27,26 @@ zoom = Vector2(0.8, 0.8)
 position = Vector2(1100, -8)
 metadata/_edit_group_ = true
 
+[node name="wall2" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(1800, 100)
+metadata/_edit_group_ = true
+
+[node name="wall3" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(2500, -200)
+metadata/_edit_group_ = true
+
+[node name="wall4" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(3200, 0)
+metadata/_edit_group_ = true
+
+[node name="wall5" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(3900, 250)
+metadata/_edit_group_ = true
+
+[node name="wall6" parent="." instance=ExtResource("2_ixfgy")]
+position = Vector2(4600, -100)
+metadata/_edit_group_ = true
+
 [node name="ParallaxLayer" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxLayer"]
@@ -42,6 +62,7 @@ offset = Vector2(450, 200)
 transform = Transform2D(1, 0, 0, 1, 450, 200)
 
 [node name="MarginContainer" type="MarginContainer" parent="DeathThing"]
+visible = false
 offset_right = 236.0
 offset_bottom = 72.0
 
@@ -58,9 +79,8 @@ text = "You died. Left-click to restart."
 [node name="PointCounter" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="PointCounter"]
-visible = false
-offset_right = 236.0
-offset_bottom = 72.0
+offset_right = 56.0
+offset_bottom = 27.0
 
 [node name="Panel" type="Panel" parent="PointCounter/MarginContainer"]
 layout_mode = 2
@@ -70,6 +90,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="PointCounter/MarginContainer/HBoxContainer"]
 layout_mode = 2
+text = "0"
+horizontal_alignment = 1
 
 [connection signal="area_entered" from="Player2/Detector" to="Player2" method="_on_detect_point_area_entered"]
 
